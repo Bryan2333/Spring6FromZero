@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--  Spring的配置文件
+    这个文件最好放到类路径下(resource目录)
+    开发者需要配置bean，这样Spring才能帮我们管理对象
+    -->
+
+    <!--
+        id: bean的唯一标识，不可重复
+        class: 必须填写类的全类名(带包名)
+    -->
+    <bean id="userBean" class="com.bryan.spring6.bean.User"/>
+
+    <!--  配置其他Bean  -->
+    <bean id="userDaoBean" class="com.bryan.spring6.dao.impl.UserDaoImplForMariadb"/>
+
+    <bean id="dateBean" class="java.util.Date"/>
+</beans>
