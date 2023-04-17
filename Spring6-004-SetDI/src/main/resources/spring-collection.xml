@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="personBean" class="com.bryan4.spring6.bean.Person">
+        <property name="names">
+            <!-- List集合，无序可重复-->
+            <list>
+                <value>张三</value>
+                <value>李四</value>
+                <value>张三</value>
+                <value>王五</value>
+            </list>
+        </property>
+
+        <property name="addresses">
+            <!-- Set集合有序不可重复-->
+            <set>
+                <value>北京海淀</value>
+                <value>北京大兴</value>
+            </set>
+        </property>
+
+        <property name="phones">
+            <!-- Map集合-->
+            <map>
+                <!-- 如果 Key 和 Value 是简单类型，使用 key 和 value
+                     如果不是简单类型，则使用 key-ref 和 value-ref
+                -->
+                <entry key="1" value="110"/>
+                <entry key="2" value="120"/>
+                <entry key="3" value="119"/>
+            </map>
+        </property>
+
+        <!-- Properties集合，也实现了Map接口，但是有自己独特的注入方式 -->
+        <property name="properties">
+            <props>
+                <!-- Properties集合的 key 和 values 只能是 String类型 -->
+                <prop key="driver">org.mariadb.jdbc.Driver</prop>
+                <prop key="url">jdbc:mariadb://localhost:3306/spring6</prop>
+                <prop key="username">bryan</prop>
+                <prop key="password">password</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+    <util:properties id="prop">
+        <prop key="driver">org.mariadb.jdbc.Driver</prop>
+        <prop key="url">jdbc:mariadb://localhost:3306</prop>
+        <prop key="username">bryan</prop>
+        <prop key="password">password</prop>
+    </util:properties>
+
+    <!-- 这是一个数据源 -->
+    <bean id="ds1" class="com.bryan4.spring6.jdbc.MyDataSource1">
+        <!-- 配置复用 -->
+        <property name="properties" ref="prop"/>
+    </bean>
+
+    <bean id="ds2" class="com.bryan4.spring6.jdbc.MyDataSource2">
+        <property name="properties" ref="prop"/>
+    </bean>
+</beans>

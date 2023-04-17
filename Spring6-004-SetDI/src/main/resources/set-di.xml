@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 声明Bean -->
+    <bean id="orderDaoBean" class="com.bryan4.spring6.dao.OrderDao"/>
+
+    <bean id="orderServiceBean" class="com.bryan4.spring6.service.OrderService">
+        <!-- 通过ref属性来引入，就是注入外部Bean -->
+        <property name="orderDao" ref="orderDaoBean"/>
+    </bean>
+
+    <bean id="orderServiceBean2" class="com.bryan4.spring6.service.OrderService">
+        <property name="orderDao">
+            <!-- 在property标签中使用嵌套的bean标签，这就是内部Bean -->
+            <bean class="com.bryan4.spring6.dao.OrderDao"/>
+        </property>
+    </bean>
+
+    <!-- 注入简单类型
+        Spring6认为基本数据类型和包装类，String类是简单类型
+     -->
+    <bean id="userBean" class="com.bryan4.spring6.bean.User">
+        <!-- 给简单类型赋值，不能使用ref，需要使用value-->
+        <property name="userName" value="张三"/>
+        <property name="password" value="123"/>
+        <property name="age" value="20"/>
+    </bean>
+
+    <!-- 测试哪些类型是简单类型 -->
+    <bean id="svtBean" class="com.bryan4.spring6.bean.SimpleValueType">
+        <property name="age1" value="1"/>
+        <property name="age2" value="2"/>
+        <property name="c1" value="c"/>
+        <property name="c2" value="C"/>
+        <property name="userName" value="张三"/>
+        <property name="flag1" value="false"/>
+        <property name="flag2" value="true"/>
+        <property name="season" value="SUMMER"/>
+        <property name="clazz" value="java.lang.String"/>
+        <!-- 如果要把Date类当成简单类型来赋值，需要用特定格式
+            Sat Apr 08 18:29:46 CST 2023
+            因此在实际开发中，一般不把它当成简单类型，而是采用ref的方式来赋值
+        -->
+        <property name="date" value="Sat Apr 08 18:29:46 CST 2023"/>
+    </bean>
+
+
+    <!-- 让Spring来管理我们的数据源 -->
+    <bean id="myDateSourceBean" class="com.bryan4.spring6.jdbc.MyDataSource">
+        <property name="userName" value="bryan"/>
+        <property name="password" value="123"/>
+        <property name="driver" value="org.mariadb.jdbc.Driver"/>
+        <property name="url" value="jdbc:mariadb://localhost:3306/spring6"/>
+    </bean>
+
+    <bean id="catBean" class="com.bryan4.spring6.bean.Cat">
+        <!-- 注入null值 -->
+        <!-- 1. 不给引用类型属性注入，则默认给null值 -->
+        <!-- <property name="name" value="tom"/>-->
+
+        <!-- 2. 使用null标签手动给属性注入null值 -->
+        <property name="name">
+            <null/>
+        </property>
+        <property name="age" value="5"/>
+
+        <!-- 注入空字符串 -->
+        <!-- 1. value留空 -->
+        <property name="name2" value=""/>
+    </bean>
+
+    <!-- 注入特殊符号 -->
+    <bean id="mathBean" class="com.bryan4.spring6.bean.MathBean">
+<!--        <property name="result" value="2 < 3"/>-->
+        <!-- 1. 用实体符号代替 -->
+        <!--<property name="result" value="2 &lt; 3"/>-->
+
+        <!-- 2. 用<![CDATA[]]> 标签-->
+        <property name="result">
+            <value><![CDATA[2 < 3]]></value>
+        </property>
+    </bean>
+</beans>
