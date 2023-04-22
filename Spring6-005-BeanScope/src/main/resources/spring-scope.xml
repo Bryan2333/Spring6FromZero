@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- scope属性有两个值:
+       singleton (单例)
+       prototype (多例)
+     -->
+    <bean id="springBean" class="com.bryan5.spring6.bean.SpringBean"/>
+
+    <!-- 配置自定义作用域 -->
+    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="threadScope">
+                    <!-- 使用Spring框架内置的实现类 -->
+                    <bean class="org.springframework.context.support.SimpleThreadScope"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="springBean2" class="com.bryan5.spring6.bean.SpringBean" scope="threadScope"/>
+</beans>
