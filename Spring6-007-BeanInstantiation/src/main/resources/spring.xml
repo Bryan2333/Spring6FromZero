@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+     Spring提供的实例化方法，第一种：在Spring配置文件中配置类的全路径
+     Spring会自动调用该类的无参构造器来实例化该Bean
+    -->
+    <bean id="springBean" class="com.bryan7.spring6.SpringBean"/>
+
+    <!--
+     Spring提供的实例化方法，第二种：简单工厂模式
+     需要在Spring配置文件中，声明调用哪个类的哪个方法
+     factory-method: 指的是工厂类中的静态方法
+    -->
+    <bean id="starBean" class="com.bryan7.spring6.StarFactory" factory-method="get"/>
+
+    <!--
+     Spring提供的实例化方法，第三种：工厂方法模式
+     通过factory-bean属性 + factory-method共同完成
+    -->
+    <!-- GunFactory实际上就是一个FactoryBean -->
+    <bean id="gunFactory" class="com.bryan7.spring6.GunFactory"/>
+    <!-- factory-bean声明使用哪个对象，factory-method声明调用该对象的哪个方法 -->
+    <bean id="gunBean" factory-bean="gunFactory" factory-method="get"/>
+
+    <!--
+     Spring提供的实例化方法，第四种：通过FactoryBean接口来实现 (第三种方法的简化)
+     通过一个工厂Bean获得普通Bean
+     -->
+    <bean id="personBean" class="com.bryan7.spring6.PersonFactoryBean"/>
+
+<!--    <bean id="studentBean" class="com.bryan7.spring6.Student">-->
+<!--        <property name="birth" value="Mon Oct 10 14:23:26 CST 2022"/>-->
+<!--    </bean>-->
+
+    <!-- 通过DateBeanFactory返回java.util.Date对象 -->
+    <bean id="dateBean" class="com.bryan7.spring6.DateFactoryBean">
+        <constructor-arg index="0" value="2003-02-11"/>
+    </bean>
+
+    <bean id="studentBean" class="com.bryan7.spring6.Student">
+        <property name="birth" ref="dateBean"/>
+    </bean>
+</beans>
