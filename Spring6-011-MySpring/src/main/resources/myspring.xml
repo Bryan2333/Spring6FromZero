@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!-- 这个配置MySpring框架的开发人员提供的 -->
+<beans>
+    <bean id="user" class="com.bryan11.myspring.bean.User">
+        <property name="name" value="张三"/>
+        <property name="age" value="24"/>
+    </bean>
+
+    <bean id="userDaoBean" class="com.bryan11.myspring.bean.UserDao"/>
+
+    <bean id="userService" class="com.bryan11.myspring.bean.UserService">
+        <property name="userDao" ref="userDaoBean"/>
+    </bean>
+
+</beans>
