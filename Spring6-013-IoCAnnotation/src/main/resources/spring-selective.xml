@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!-- 第一种解决方案 (白名单)
+         use-default-filters="false"
+         当属性值为false时，对应的包下所有声明Bean的注解全部失效
+    -->
+   <!-- <context:component-scan base-package="com.bryan013.spring6.bean2" use-default-filters="false">
+        &lt;!&ndash; @Repository @Service 注解有效 &ndash;&gt;
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>-->
+
+    <!-- 第二种解决方式 (黑名单)
+        use-default-filters="true" (默认就是true, 不需要写)
+    -->
+    <context:component-scan base-package="com.bryan013.spring6.bean2">
+        <!-- @Repository @Service注解不生效 -->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
+</beans>
